@@ -1,0 +1,62 @@
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
+import { invokeLLM } from '../../shared/llm.ts';
+
+export default async function(req) {
+  try {
+    const base44 = createClientFromRequest(req);
+    const user = await base44.auth.me();
+    if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+
+    const body = await req.json();
+    const { taskList, context, workingHours } = body;
+    if (!taskList) return Response.json({ error: 'Task list is required' }, { status: 400 });
+
+    const prompt = `You are an expert productivity coach and task planner. Given a list of tasks, prioritize and schedule them intelligently.
+
+Tasks (one per line or comma separated):
+"""
+${taskList}
+"""
+
+${context ? `Additional context: ${context}` : ''}
+${workingHours ? `Working hours: ${workingHours}` : 'Assume a standard 9am-5pm workday.'}
+
+For each task, determine:
+- A clear, actionable title.
+- A short description.
+- A priority level: high, medium, or low (based on urgency and impact).
+- An estimated duration in minutes.
+- A suggested time block during the workday (e.g. "09:00 - 09:45").
+- A category (e.g. Deep Work, Communication, Admin, Review).
+
+Order the tasks by suggested schedule time. Group deep-focus / high-priority work earlier when energy is higher, and lighter tasks later. Return a coherent daily plan.`;
+
+    const schema = {
+      type: 'object',
+      properties: {
+        planOverview: { type: 'string' },
+        tasks: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              title: { type: 'string' },
+              description: { type: 'string' },
+              priority: { type: 'string', enum: ['high', 'medium', 'low'] },
+              estimatedMinutes: { type: 'number' },
+              timeBlock: { type: 'string' },
+              category: { type: 'string' },
+            },
+            required: ['title', 'description', 'priority', 'estimatedMinutes', 'timeBlock', 'category'],
+          },
+        },
+      },
+      required: ['planOverview', 'tasks'],
+    };
+
+    const result = await invokeLLM(base44, prompt, schema);
+    return Response.json(result);
+  } catch (error) {
+    return Response.json({ error: error.message }, { status: 500 });
+  }
+}
