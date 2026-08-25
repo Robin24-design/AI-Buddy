@@ -1,0 +1,56 @@
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
+import { invokeLLM } from '../../shared/llm.ts';
+
+export default async function(req) {
+  try {
+    const base44 = createClientFromRequest(req);
+    const user = await base44.auth.me();
+    if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+
+    const body = await req.json();
+    const { topic, focus, depth } = body;
+    if (!topic) return Response.json({ error: 'A research topic is required' }, { status: 400 });
+
+    const prompt = `You are an expert research analyst. Conduct research on the following topic and provide a structured briefing.
+
+Topic: ${topic}
+${focus ? `Specific focus: ${focus}` : ''}
+${depth ? `Depth: ${depth}` : 'Provide a concise but thorough overview.'}
+
+Produce:
+1. An executive summary (3-4 sentences capturing the essence).
+2. Key insights (bullet list of the most important findings, trends, or takeaways).
+3. A structured analysis broken into themed sections (each section has a heading and a short paragraph).
+4. Recommended next steps or considerations for the reader.
+5. A list of suggested search queries the reader could use to dig deeper.
+
+Be objective, accurate, and clearly written for a professional audience.`;
+
+    const schema = {
+      type: 'object',
+      properties: {
+        summary: { type: 'string' },
+        insights: { type: 'array', items: { type: 'string' } },
+        sections: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              heading: { type: 'string' },
+              content: { type: 'string' },
+            },
+            required: ['heading', 'content'],
+          },
+        },
+        nextSteps: { type: 'array', items: { type: 'string' } },
+        searchQueries: { type: 'array', items: { type: 'string' } },
+      },
+      required: ['summary', 'insights', 'sections', 'nextSteps', 'searchQueries'],
+    };
+
+    const result = await invokeLLM(base44, prompt, schema);
+    return Response.json(result);
+  } catch (error) {
+    return Response.json({ error: error.message }, { status: 500 });
+  }
+}
