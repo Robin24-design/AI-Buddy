@@ -1,0 +1,11 @@
+// Shared helper for InvokeLLM calls across all AI assistant functions.
+// Keeps the Core-integration call in one place so every function uses it identically.
+export async function invokeLLM(base44, prompt, schema, model) {
+  const params = {
+    prompt,
+    response_json_schema: schema || null,
+  };
+  if (model) params.model = model;
+  const result = await base44.asServiceRole.integrations.Core.InvokeLLM(params);
+  return result;
+}
