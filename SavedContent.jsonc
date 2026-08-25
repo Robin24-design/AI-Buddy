@@ -1,0 +1,28 @@
+{
+  "name": "SavedContent",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "email",
+        "summary",
+        "research"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "type",
+    "title",
+    "content"
+  ]
+}
