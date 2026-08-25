@@ -1,0 +1,44 @@
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
+import { invokeLLM } from '../../shared/llm.ts';
+
+export default async function(req) {
+  try {
+    const base44 = createClientFromRequest(req);
+    const user = await base44.auth.me();
+    if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+
+    const body = await req.json();
+    const { purpose, tone, audience, keyPoints, senderName } = body;
+    if (!purpose) return Response.json({ error: 'Purpose is required' }, { status: 400 });
+
+    const prompt = `You are an expert professional email writer. Write a complete, ready-to-send email.
+
+Purpose / goal of the email: ${purpose}
+Desired tone: ${tone || 'professional'}
+Recipient audience: ${audience || 'colleague'}
+Key points to include: ${keyPoints || 'none specified'}
+${senderName ? `Sign off as: ${senderName}` : ''}
+
+Guidelines:
+- Write a clear, compelling subject line.
+- Open with an appropriate greeting for the audience.
+- Keep the body concise, well-structured, and on-tone.
+- Include a clear call to action or next step.
+- Close with a professional sign-off.
+- Do not include placeholders like [Name]; use the audience context.`;
+
+    const schema = {
+      type: 'object',
+      properties: {
+        subject: { type: 'string' },
+        body: { type: 'string' },
+      },
+      required: ['subject', 'body'],
+    };
+
+    const result = await invokeLLM(base44, prompt, schema);
+    return Response.json(result);
+  } catch (error) {
+    return Response.json({ error: error.message }, { status: 500 });
+  }
+}
