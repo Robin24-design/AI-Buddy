@@ -1,0 +1,42 @@
+{
+  "name": "Task",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "default": "medium"
+    },
+    "category": {
+      "type": "string"
+    },
+    "estimatedMinutes": {
+      "type": "number"
+    },
+    "timeBlock": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "in_progress",
+        "done"
+      ],
+      "default": "planned"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}
