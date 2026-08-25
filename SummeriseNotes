@@ -1,0 +1,68 @@
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.40';
+import { invokeLLM } from '../../shared/llm.ts';
+
+export default async function(req) {
+  try {
+    const base44 = createClientFromRequest(req);
+    const user = await base44.auth.me();
+    if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+
+    const body = await req.json();
+    const { notes, meetingTitle } = body;
+    if (!notes) return Response.json({ error: 'Meeting notes are required' }, { status: 400 });
+
+    const prompt = `You are an expert meeting notes analyst. Analyze the following meeting notes and produce a structured summary.
+
+${meetingTitle ? `Meeting: ${meetingTitle}` : ''}
+
+Meeting notes:
+"""
+${notes}
+"""
+
+Produce:
+1. A concise executive summary (2-3 sentences).
+2. Key discussion points (bullet list of the most important topics covered).
+3. Action items (each with an owner if mentioned, the task, and a due date if mentioned).
+4. Deadlines (any date-bound commitments, with what is due and when).
+
+Be precise and only use information present in the notes. If an owner or date is not mentioned, mark it as "Unassigned" or "Not specified".`;
+
+    const schema = {
+      type: 'object',
+      properties: {
+        summary: { type: 'string' },
+        keyPoints: { type: 'array', items: { type: 'string' } },
+        actionItems: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              task: { type: 'string' },
+              owner: { type: 'string' },
+              dueDate: { type: 'string' },
+            },
+            required: ['task', 'owner', 'dueDate'],
+          },
+        },
+        deadlines: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              item: { type: 'string' },
+              date: { type: 'string' },
+            },
+            required: ['item', 'date'],
+          },
+        },
+      },
+      required: ['summary', 'keyPoints', 'actionItems', 'deadlines'],
+    };
+
+    const result = await invokeLLM(base44, prompt, schema);
+    return Response.json(result);
+  } catch (error) {
+    return Response.json({ error: error.message }, { status: 500 });
+  }
+}
