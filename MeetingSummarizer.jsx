@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { base44 } from "@/api/base44Client";
+import { base44 } from "./api";
 import { FileText, Save, Sparkles, CheckCircle2, CalendarClock, ListTodo } from "lucide-react";
 import PageHeader from "@/components/ai/PageHeader";
 import AiDisclaimer from "@/components/ai/AiDisclaimer";
