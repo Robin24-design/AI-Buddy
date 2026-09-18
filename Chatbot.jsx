@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import { base44 } from "@/api/base44Client";
+import { base44 } from "./api";
 import { MessageSquare, Send, Sparkles, User } from "lucide-react";
 import PageHeader from "@/components/ai/PageHeader";
 import AiDisclaimer from "@/components/ai/AiDisclaimer";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+import { Button } from "./button";
+import { Textarea } from "./textarea";
 
 const SUGGESTIONS = [
   "Help me write a polite follow-up to an unanswered email",
