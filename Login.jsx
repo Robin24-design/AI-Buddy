@@ -6,7 +6,7 @@ import { Input } from "./input";
 import { Label } from "./label";
 import { LogIn, Mail, Lock, Loader2 } from "lucide-react";
 import AuthLayout from "./AuthLayout";
-import GoogleIcon from "./GoogleIcon";
+import GoogleIcon from "./GoogleIcon,jsx";
 import { safeReturnTo } from "./authReturnTo";
 
 export default function Login() {
