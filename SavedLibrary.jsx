@@ -3,18 +3,18 @@ import { base44 } from "@/api/base44Client";
 import { Bookmark, Search, Trash2, Pencil, Mail, FileText, Loader2, Eye } from "lucide-react";
 import PageHeader from "@/components/ai/PageHeader";
 import SavedContentViewer from "@/components/ai/SavedContentViewer";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
+import { Input } from "./input";
+import { Button } from "./button";
+import { Textarea } from "./textarea";
+import { Label } from "./label";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from "@/components/ui/dialog";
-import { useToast } from "@/components/ui/use-toast";
+} from "./dialog";
+import { useToast } from "./use-toast";
 
 const TYPE_META = {
   email: { label: "Email", icon: Mail, badge: "bg-indigo-100 text-indigo-700" },
