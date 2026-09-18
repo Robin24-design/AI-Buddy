@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { base44 } from "@/api/base44Client";
+import { base44 } from "./api";
 import { ListChecks, Sparkles, Save, Trash2, Circle, CheckCircle2, Loader } from "lucide-react";
 import PageHeader from "@/components/ai/PageHeader";
 import AiDisclaimer from "@/components/ai/AiDisclaimer";
 import LoadingCard from "@/components/ai/LoadingCard";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useToast } from "@/components/ui/use-toast";
+import { Button } from "./button";
+import { Textarea } from "./textarea";
+import { Input } from "./input";
+import { Label } from "./label";
+import { useToast } from "./use-toast";
 
 const PRIORITY_STYLES = {
   high: "bg-red-100 text-red-700",
