@@ -8,17 +8,17 @@ import UserNotRegisteredError from './UserNotRegisteredError';
 import ScrollToTop from './ScrollToTop';
 import ProtectedRoute from './ProtectedRoute';
 import AppLayout from './AppLayout';
-import Login from '@/pages/Login';
-import Register from '@/pages/Register';
-import ForgotPassword from '@/pages/ForgotPassword';
-import ResetPassword from '@/pages/ResetPassword';
-import Dashboard from '@/pages/Dashboard';
-import EmailGenerator from '@/pages/EmailGenerator';
-import MeetingSummarizer from '@/pages/MeetingSummarizer';
-import TaskPlanner from '@/pages/TaskPlanner';
-import ResearchAssistant from '@/pages/ResearchAssistant';
-import Chatbot from '@/pages/Chatbot';
-import SavedLibrary from '@/pages/SavedLibrary';
+import Login from './Login';
+import Register from './Register';
+import ForgotPassword from './ForgotPassword';
+import ResetPassword from './ResetPassword';
+import Dashboard from './Dashboard';
+import EmailGenerator from './EmailGenerator';
+import MeetingSummarizer from './MeetingSummarizer';
+import TaskPlanner from './TaskPlanner';
+import ResearchAssistant from './ResearchAssistant';
+import Chatbot from './Chatbot';
+import SavedLibrary from './SavedLibrary';
 // Add page imports here
 
 const AuthenticatedApp = () => {
