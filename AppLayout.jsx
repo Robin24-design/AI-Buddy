@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Outlet, useLocation, Link } from "react-router-dom";
-import { base44 } from "@/api/base44Client";
-import { useAuth } from "@/lib/AuthContext";
+import { base44 } from "./api";
+import { useAuth } from "./AuthContext";
 import {
   LayoutDashboard,
   Mail,
