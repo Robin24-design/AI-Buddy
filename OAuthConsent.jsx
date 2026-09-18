@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { appParams } from "@/lib/app-params";
-import { Button } from "@/components/ui/button";
+import { Button } from "./button";
 import { ShieldCheck, Loader2 } from "lucide-react";
-import AuthLayout from "@/components/AuthLayout";
+import AuthLayout from "./AuthLayout";
 
 // App-side OAuth consent page for the app's MCP server. The platform redirects
 // AI clients here (see base44/mcp/config.json `consent_path`) with an opaque
