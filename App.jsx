@@ -4,10 +4,10 @@ import { queryClientInstance } from './query-client'
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import PageNotFound from './PageNotFound';
 import { AuthProvider, useAuth } from './AuthContext';
-import UserNotRegisteredError from '@/components/UserNotRegisteredError';
-import ScrollToTop from './components/ScrollToTop';
-import ProtectedRoute from '@/components/ProtectedRoute';
-import AppLayout from '@/components/AppLayout';
+import UserNotRegisteredError from './UserNotRegisteredError';
+import ScrollToTop from './ScrollToTop';
+import ProtectedRoute from './ProtectedRoute';
+import AppLayout from './AppLayout';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
 import ForgotPassword from '@/pages/ForgotPassword';
