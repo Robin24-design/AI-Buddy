@@ -4,11 +4,11 @@ import { FileText, Save, Sparkles, CheckCircle2, CalendarClock, ListTodo } from 
 import PageHeader from "@/components/ai/PageHeader";
 import AiDisclaimer from "@/components/ai/AiDisclaimer";
 import LoadingCard from "@/components/ai/LoadingCard";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useToast } from "@/components/ui/use-toast";
+import { Button } from "./button";
+import { Textarea } from "./textarea";
+import { Input } from "./input";
+import { Label } from "./label";
+import { useToast } from "./use-toast";
 
 export default function MeetingSummarizer() {
   const { toast } = useToast();
