@@ -4,18 +4,18 @@ import { Mail, Copy, Check, Save, Sparkles } from "lucide-react";
 import PageHeader from "@/components/ai/PageHeader";
 import AiDisclaimer from "@/components/ai/AiDisclaimer";
 import LoadingCard from "@/components/ai/LoadingCard";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Button } from "./button";
+import { Textarea } from "./textarea";
+import { Input } from "./input";
+import { Label } from "./label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { useToast } from "@/components/ui/use-toast";
+} from "./select";
+import { useToast } from "./use-toast";
 
 const TONES = ["Professional", "Friendly", "Formal", "Persuasive", "Concise", "Apologetic"];
 const AUDIENCES = ["Colleague", "Manager", "Client", "Team", "Vendor", "Job Applicant"];
