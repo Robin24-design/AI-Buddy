@@ -1,20 +1,20 @@
 import React, { useState } from "react";
-import { base44 } from "@/api/base44Client";
+import { base44 } from "./api";
 import { Search, Sparkles, Save, Lightbulb, ArrowRight, BookOpen } from "lucide-react";
 import PageHeader from "@/components/ai/PageHeader";
 import AiDisclaimer from "@/components/ai/AiDisclaimer";
 import LoadingCard from "@/components/ai/LoadingCard";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Button } from "./button";
+import { Input } from "./input";
+import { Label } from "./label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { useToast } from "@/components/ui/use-toast";
+} from "./select";
+import { useToast } from "./use-toast";
 
 const DEPTHS = ["Brief overview", "Standard", "In-depth"];
 
